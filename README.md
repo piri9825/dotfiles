@@ -1,12 +1,12 @@
 # Dotfiles
 
-Lightweight, reproducible zsh configuration
+Lightweight, reproducible zsh and git configuration
 
 ## Quick Start
 
 ```bash
 # Clone the repository
-git clone <your-repo-url> ~/dotfiles
+git clone https://github.com/piri9825/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
 # Run installation script
@@ -18,6 +18,14 @@ source ~/.zshrc
 ```
 
 ## Customization
+### Git user configuration
+After installation, set your git identity in `~/.config/git/local.gitconfig`:
+
+```ini
+[user]
+	name = Your Actual Name
+	email = your.email@example.com
+```
 
 ### Adding aliases
 Edit `config/zsh/aliases.zsh` or add them to `~/.config/zsh/local.zsh`
