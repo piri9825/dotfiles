@@ -1,0 +1,9 @@
+# Ignore generated files
+config/zsh/.zsh_history
+config/zsh/.zcompdump*
+config/zsh/plugins/
+config/zsh/local.zsh
+config/git/local.gitconfig
+
+# macOS
+.DS_Store
