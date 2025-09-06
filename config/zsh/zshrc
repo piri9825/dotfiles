@@ -24,18 +24,6 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^[[3~' delete-char
 
-# Colors for ls
-export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
-
-# Git-aware prompt
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats ' (%F{blue}%b%f)'
-zstyle ':vcs_info:git:*' actionformats ' (%F{blue}%b%f|%F{red}%a%f)'
-setopt PROMPT_SUBST
-PS1='%F{cyan}%c%f${vcs_info_msg_0_} %F{green}%(!.#.➜)%f '
-
 # Completions
 autoload -U compinit
 compinit -d "$HOME/.config/zsh/.zcompdump"
@@ -67,17 +55,13 @@ load_plugin() {
     done
 }
 
-# Load essential plugins
+# Load plugins
 load_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-syntax-highlighting.git"
 load_plugin "zsh-autosuggestions" "https://github.com/zsh-users/zsh-autosuggestions.git"
 load_plugin "zsh-history-substring-search" "https://github.com/zsh-users/zsh-history-substring-search.git"
 
 # Plugin configurations
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-# Tool integrations
-command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
 # Load aliases
 source "$HOME/.config/zsh/aliases.zsh"
@@ -92,3 +76,11 @@ source "$HOME/.config/zsh/aliases.zsh"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# Configuration for
+export EZA_ICONS=true
+export EZA_ICON_THEME="nerd-font"
+
+# Shell integrations
+eval "$(direnv hook zsh)"
+eval "$(starship init zsh)"

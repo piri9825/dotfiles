@@ -1,0 +1,7 @@
+# This is the configuration file for Ghostty.
+
+font-family = JetBrainsMonoNL NFM Regular
+font-family-bold = JetBrainsMonoNL NFM Bold
+font-family-italic = JetBrainsMonoNL NFM Italic
+font-family-bold-italic = JetBrainsMonoNL NFM Bold Italic
+theme = UltraDark

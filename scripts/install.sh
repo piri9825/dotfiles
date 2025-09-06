@@ -32,49 +32,30 @@ fi
 
 log_info "Starting dotfiles installation..."
 
-# Create necessary directories
-log_info "Creating configuration directories..."
-mkdir -p "$CONFIG_DIR/zsh"
-mkdir -p "$CONFIG_DIR/zsh/plugins"
-mkdir -p "$CONFIG_DIR/git"
-
-# Backup existing configurations
-backup_file() {
-    local file="$1"
-    if [[ -f "$file" ]] || [[ -L "$file" ]]; then
-        local backup="${file}.backup.$(date +%Y%m%d_%H%M%S)"
-        log_warn "Backing up existing $file to $backup"
-        mv "$file" "$backup"
-    fi
-}
-
 # Create symlinks
 create_symlink() {
     local source="$1"
     local target="$2"
-    
-    backup_file "$target"
+
+    # Create parent directory if it doesn't exist
+    mkdir -p "$(dirname "$target")"
     
     log_info "Creating symlink: $target -> $source"
     ln -sf "$source" "$target"
 }
 
-# Link zsh configuration files
+# Symlinks
 create_symlink "$DOTFILES_DIR/config/zsh/zshrc" "$CONFIG_DIR/zsh/zshrc"
 create_symlink "$DOTFILES_DIR/config/zsh/aliases.zsh" "$CONFIG_DIR/zsh/aliases.zsh"
-
-# Link main zshrc to standard location
-backup_file "$HOME/.zshrc"
-echo 'export ZDOTDIR="$HOME/.config/zsh"' > "$HOME/.zshrc"
-echo 'source "$ZDOTDIR/zshrc"' >> "$HOME/.zshrc"
-
-# Create git config directory and link files
 create_symlink "$DOTFILES_DIR/config/git/gitconfig" "$CONFIG_DIR/git/gitconfig"
 create_symlink "$DOTFILES_DIR/config/git/gitignore_global" "$CONFIG_DIR/git/gitignore_global"
-
-# Link git config to standard location
-backup_file "$HOME/.gitconfig"
 create_symlink "$CONFIG_DIR/git/gitconfig" "$HOME/.gitconfig"
+create_symlink "$DOTFILES_DIR/config/starship/starship.toml" "$CONFIG_DIR/starship.toml"
+create_symlink "$DOTFILES_DIR/config/ghostty/config" "$CONFIG_DIR/ghostty/config"
+
+# Link main zshrc to standard location
+echo 'export ZDOTDIR="$HOME/.config/zsh"' > "$HOME/.zshrc"
+echo 'source "$ZDOTDIR/zshrc"' >> "$HOME/.zshrc"
 
 # Create local config file if it doesn't exist
 if [[ ! -f "$CONFIG_DIR/zsh/local.zsh" ]]; then
@@ -99,12 +80,6 @@ if [[ ! -f "$CONFIG_DIR/git/local.gitconfig" ]]; then
 [user]
 	name = Your Name
 	email = your.email@example.com
-
-# Example machine-specific settings:
-# [core]
-# 	editor = code --wait
-# [credential]
-# 	helper = osxkeychain
 EOF
 fi
 

@@ -1,7 +1,9 @@
 # ~/.config/zsh/aliases.zsh - Shell aliases
 
 # System aliases
-alias la='ls -A'
+alias ls='eza --icons'
+alias ll='eza -l --icons --group-directories-first'
+alias la='eza -la --icons'
 alias grep='grep --color=auto'
 alias fgrep='grep -F --color=auto'
 alias egrep='grep -E --color=auto'

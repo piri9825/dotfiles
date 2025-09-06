@@ -1,6 +1,14 @@
 # Dotfiles
 
-Lightweight, reproducible zsh and git configuration
+Terminal with zsh, ghostty, and starship.
+
+## Install before
+- zsh
+- JetBrainsMono Nerd Font
+- ghostty
+- starship
+- direnv
+- eza
 
 ## Quick Start
 
@@ -43,8 +51,6 @@ load_plugin "plugin-name" "https://github.com/user/repo.git"
 ## Uninstall
 
 ```bash
-# Remove symlinks and restore backups
 rm ~/.zshrc
 rm -rf ~/.config/zsh
-# Restore from backup files if needed
 ```
