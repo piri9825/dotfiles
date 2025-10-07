@@ -3,6 +3,9 @@
 	autocrlf = input
 	excludesfile = ~/.config/git/gitignore_global
 	pager = less -FRX
+	quotepath = false
+	fsmonitor = true
+	untrackedCache = true
 
 [init]
 	defaultBranch = main
@@ -12,14 +15,18 @@
 	autoSetupRemote = true
 
 [pull]
-	rebase = false
+	rebase = true
+	ff = only
 
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
+	ff = only
 
 [diff]
 	colorMoved = default
+	algorithm = histogram
+	indentHeuristic = true
 
 [color]
 	ui = auto
@@ -75,6 +82,15 @@
 
 [help]
 	autocorrect = 1
+
+[gpg]
+	format = ssh
+
+[commit]
+	gpgsign = true
+
+[user]
+    signingkey = ~/.ssh/id_ed25519.pub
 
 [include]
 	# Include local git config for user info and machine-specific settings
