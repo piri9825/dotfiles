@@ -7,6 +7,7 @@ Terminal with zsh, ghostty, and starship.
 - JetBrainsMono Nerd Font
 - ghostty
 - starship
+- nvm
 - direnv
 - eza
 
