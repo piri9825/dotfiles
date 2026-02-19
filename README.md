@@ -1,15 +1,6 @@
 # Dotfiles
 
-Terminal with zsh, ghostty, and starship.
-
-## Install before
-- zsh
-- JetBrainsMono Nerd Font
-- ghostty
-- starship
-- nvm
-- direnv
-- eza
+Terminal setup with zsh, ghostty, and starship.
 
 ## Quick Start
 
@@ -18,7 +9,7 @@ Terminal with zsh, ghostty, and starship.
 git clone https://github.com/piri9825/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
-# Run installation script
+# Run installation script (installs dependencies + creates symlinks)
 chmod +x scripts/install.sh
 ./scripts/install.sh
 
@@ -26,7 +17,30 @@ chmod +x scripts/install.sh
 source ~/.zshrc
 ```
 
+The install script detects your OS and handles dependencies automatically:
+
+- **macOS** — installs everything via `brew bundle` using `scripts/Brewfile`
+- **Linux** — installs packages via your native package manager (`apt`, `dnf`, or `pacman`), plus starship and nvm via their official install scripts
+
+> **macOS prerequisite:** [Homebrew](https://brew.sh) must be installed before running the script.
+
+> **Linux note:** Ghostty must be installed manually. See the [Ghostty install docs](https://ghostty.org/docs/install/binary) for your distro.
+
+### Installing dependencies separately
+
+If you want to install dependencies without running the full setup:
+
+```bash
+# macOS
+brew bundle --file=scripts/Brewfile
+
+# Linux
+chmod +x scripts/packages.sh
+./scripts/packages.sh
+```
+
 ## Customization
+
 ### Git user configuration
 After installation, set your git identity in `~/.config/git/local.gitconfig`:
 

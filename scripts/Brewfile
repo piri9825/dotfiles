@@ -1,0 +1,14 @@
+tap "homebrew/cask-fonts"
+
+# Shell & prompt
+brew "zsh"
+brew "starship"
+brew "direnv"
+brew "eza"
+brew "nvm"
+
+# Terminal
+cask "ghostty"
+
+# Fonts
+cask "font-jetbrains-mono-nerd-font"

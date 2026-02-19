@@ -32,19 +32,47 @@ fi
 
 log_info "Starting dotfiles installation..."
 
-# Create symlinks
+# ── Dependency installation ───────────────────────────────────────────────────
+
+install_deps() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if ! command -v brew &>/dev/null; then
+            log_error "Homebrew is not installed. Install it from https://brew.sh then re-run this script."
+            exit 1
+        fi
+        log_info "Installing dependencies via Homebrew..."
+        brew bundle --file="$DOTFILES_DIR/scripts/Brewfile"
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        log_info "Installing dependencies for Linux..."
+        chmod +x "$DOTFILES_DIR/scripts/packages.sh"
+        "$DOTFILES_DIR/scripts/packages.sh"
+    else
+        log_warn "Unknown OS '$OSTYPE'. Skipping dependency installation."
+        log_warn "Install dependencies manually — see README.md for the list."
+    fi
+}
+
+read -p "Install dependencies now? (y/n): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    install_deps
+else
+    log_warn "Skipping dependency installation. Make sure they are already installed."
+fi
+
+# ── Symlinks ──────────────────────────────────────────────────────────────────
+
 create_symlink() {
     local source="$1"
     local target="$2"
 
     # Create parent directory if it doesn't exist
     mkdir -p "$(dirname "$target")"
-    
+
     log_info "Creating symlink: $target -> $source"
     ln -sf "$source" "$target"
 }
 
-# Symlinks
 create_symlink "$DOTFILES_DIR/config/zsh/zshrc" "$CONFIG_DIR/zsh/zshrc"
 create_symlink "$DOTFILES_DIR/config/zsh/aliases.zsh" "$CONFIG_DIR/zsh/aliases.zsh"
 create_symlink "$DOTFILES_DIR/config/git/gitconfig" "$CONFIG_DIR/git/gitconfig"
@@ -56,6 +84,8 @@ create_symlink "$DOTFILES_DIR/config/ghostty/config" "$CONFIG_DIR/ghostty/config
 # Link main zshrc to standard location
 echo 'export ZDOTDIR="$HOME/.config/zsh"' > "$HOME/.zshrc"
 echo 'source "$ZDOTDIR/zshrc"' >> "$HOME/.zshrc"
+
+# ── Local config files ────────────────────────────────────────────────────────
 
 # Create local config file if it doesn't exist
 if [[ ! -f "$CONFIG_DIR/zsh/local.zsh" ]]; then
@@ -82,6 +112,8 @@ if [[ ! -f "$CONFIG_DIR/git/local.gitconfig" ]]; then
 	email = your.email@example.com
 EOF
 fi
+
+# ── Done ──────────────────────────────────────────────────────────────────────
 
 log_info "Installation complete!"
 log_info "Please edit ~/.config/git/local.gitconfig with your actual name and email"

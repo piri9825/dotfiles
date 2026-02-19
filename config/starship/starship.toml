@@ -1,4 +1,4 @@
-command_timeout = 1000
+command_timeout = 500
 
 format = """ 
 \
@@ -11,7 +11,48 @@ $directory\
 [ ](fg:green)\
 $git_branch\
 $git_status\
-$all
+$hostname\
+$git_commit\
+$fossil_branch\
+$hg_branch\
+$pijul_channel\
+$aws\
+$buf\
+$c\
+$cmake\
+$conda\
+$crystal\
+$dart\
+$docker_context\
+$elixir\
+$elm\
+$fennel\
+$golang\
+$gradle\
+$guix_shell\
+$haskell\
+$haxe\
+$java\
+$julia\
+$kotlin\
+$lua\
+$memory_usage\
+$meson\
+$nim\
+$nix_shell\
+$nodejs\
+$ocaml\
+$package\
+$perl\
+$php\
+$python\
+$rlang\
+$ruby\
+$rust\
+$scala\
+$swift\
+$zig\
+$cmd_duration\
 $character"""
 
 [username]
