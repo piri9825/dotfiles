@@ -73,7 +73,7 @@ create_symlink() {
     ln -sf "$source" "$target"
 }
 
-create_symlink "$DOTFILES_DIR/config/zsh/zshrc" "$CONFIG_DIR/zsh/zshrc"
+create_symlink "$DOTFILES_DIR/config/zsh/.zshrc" "$CONFIG_DIR/zsh/.zshrc"
 create_symlink "$DOTFILES_DIR/config/zsh/aliases.zsh" "$CONFIG_DIR/zsh/aliases.zsh"
 create_symlink "$DOTFILES_DIR/config/git/gitconfig" "$CONFIG_DIR/git/gitconfig"
 create_symlink "$DOTFILES_DIR/config/git/gitignore_global" "$CONFIG_DIR/git/gitignore_global"
@@ -81,9 +81,8 @@ create_symlink "$CONFIG_DIR/git/gitconfig" "$HOME/.gitconfig"
 create_symlink "$DOTFILES_DIR/config/starship/starship.toml" "$CONFIG_DIR/starship.toml"
 create_symlink "$DOTFILES_DIR/config/ghostty/config" "$CONFIG_DIR/ghostty/config"
 
-# Link main zshrc to standard location
-echo 'export ZDOTDIR="$HOME/.config/zsh"' > "$HOME/.zshrc"
-echo 'source "$ZDOTDIR/zshrc"' >> "$HOME/.zshrc"
+# Set ZDOTDIR so zsh finds .zshrc in the right place
+echo 'export ZDOTDIR="$HOME/.config/zsh"' > "$HOME/.zshenv"
 
 # ── Local config files ────────────────────────────────────────────────────────
 
@@ -124,6 +123,6 @@ read -p "Install zsh plugins now? (y/n): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     log_info "Installing plugins..."
-    zsh -c "source $CONFIG_DIR/zsh/zshrc"
+    zsh -c "source $CONFIG_DIR/zsh/.zshrc"
     log_info "Plugins installed!"
 fi
